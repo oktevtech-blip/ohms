@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2026 at 12:35 AM
+-- Generation Time: Jun 27, 2026 at 01:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,13 +38,6 @@ CREATE TABLE `appointments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`appointment_id`, `patient_id`, `doctor_id`, `appointment_date`, `appointment_time`, `reason`, `status`, `created_at`) VALUES
-(1, 3, 12, '2026-06-27', '09:20:00', 'tooth surgery', 'Scheduled', '2026-06-25 18:34:58');
-
 -- --------------------------------------------------------
 
 --
@@ -60,14 +53,6 @@ CREATE TABLE `billing` (
   `billing_date` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `billing`
---
-
-INSERT INTO `billing` (`bill_id`, `patient_id`, `service_name`, `amount`, `payment_status`, `billing_date`, `created_at`) VALUES
-(1, 3, 'tooth sergery', 20.00, 'Paid', '2026-06-27', '2026-06-26 08:34:40'),
-(2, 2, 'blood test', 4.00, 'Pending', '2026-06-28', '2026-06-26 08:35:59');
 
 -- --------------------------------------------------------
 
@@ -87,14 +72,6 @@ CREATE TABLE `doctors` (
   `status` enum('Available','Busy','On Leave') DEFAULT 'Available',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `doctors`
---
-
-INSERT INTO `doctors` (`doctor_id`, `first_name`, `last_name`, `email`, `phone`, `user_id`, `specialization`, `department`, `status`, `created_at`) VALUES
-(11, 'John', 'Doe', 'john@example.com', '0700000000', 3, 'Cardiology', 'Heart Center', 'Available', '2026-06-25 14:37:56'),
-(12, 'Chloe', 'Kajoba', 'kajobachloe@gmail.com', '0709389258', 4, 'Sergery', 'Opticians', 'Available', '2026-06-25 18:03:03');
 
 -- --------------------------------------------------------
 
@@ -129,13 +106,6 @@ CREATE TABLE `medical_records` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `medical_records`
---
-
-INSERT INTO `medical_records` (`record_id`, `patient_id`, `doctor_id`, `diagnosis`, `treatment`, `prescription`, `notes`, `visit_date`, `created_at`) VALUES
-(1, 3, 12, 'he is suffering from malaria', 'coatem 4 x 2', 'Daily for three days', 'Keep in a safe place', '2026-06-27', '2026-06-25 19:10:27');
-
 -- --------------------------------------------------------
 
 --
@@ -156,14 +126,6 @@ CREATE TABLE `patients` (
   `emergency_phone` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`patient_id`, `first_name`, `last_name`, `gender`, `date_of_birth`, `phone`, `email`, `address`, `blood_group`, `emergency_contact`, `emergency_phone`, `created_at`) VALUES
-(2, 'Emma', 'Zziwa', 'Male', NULL, '0781001547', 'zziwa@gmail.com', NULL, NULL, NULL, NULL, '2026-06-25 13:12:40'),
-(3, 'Benson Vamer', 'Twine', 'Male', NULL, '0776440076', 'twinebenson@gmail.com', NULL, NULL, NULL, NULL, '2026-06-25 13:13:14');
 
 -- --------------------------------------------------------
 
@@ -191,16 +153,6 @@ CREATE TABLE `roles` (
   `role_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `roles`
---
-
-INSERT INTO `roles` (`role_id`, `role_name`) VALUES
-(4, 'Accountant'),
-(1, 'Admin'),
-(2, 'Doctor'),
-(3, 'Receptionist');
-
 -- --------------------------------------------------------
 
 --
@@ -226,13 +178,6 @@ CREATE TABLE `settings` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `settings`
---
-
-INSERT INTO `settings` (`setting_id`, `hospital_name`, `registration_number`, `hospital_email`, `hospital_phone`, `hospital_address`, `website`, `currency`, `timezone`, `language`, `email_notifications`, `sms_notifications`, `appointment_reminders`, `billing_reminders`, `created_at`, `updated_at`) VALUES
-(1, 'Open Hospital', 'REG001', 'info@hospital.com', '+256700000000', 'Kampala, Uganda', 'www.hospital.com', 'UGX', 'Africa/Kampala', 'English', 1, 0, 1, 1, '2026-06-26 08:49:45', '2026-06-26 08:49:45');
-
 -- --------------------------------------------------------
 
 --
@@ -249,17 +194,6 @@ CREATE TABLE `users` (
   `phone` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `role_id`, `first_name`, `last_name`, `email`, `password`, `phone`, `created_at`) VALUES
-(1, 1, 'Elvis', 'Okema', 'okemaelvis@gmail.com', '$2b$10$ZPGyS/1UzbkKkCktkMf5DeLNbIIIn37FEgdjfLXtqJFwow71g9oKG', NULL, '2026-06-24 23:16:29'),
-(3, 2, 'John', 'Doe', 'john@example.com', 'password123', '0700000000', '2026-06-25 14:33:27'),
-(4, 2, 'Chloe', 'Kajoba', 'kajobachloe@gmail.com', '$2b$10$459vSb.MWwXd9C0XmD4AAeNHOPdJA0R4vvUVCkbrevcsp5bz6h3YC', '0709389258', '2026-06-25 18:03:03'),
-(5, 3, 'Silver', 'Ndora', 'ndorasilver@gmail.com', '$2b$10$/fDTqZTgqqr8byzB1lXxI.ZX7.1ysyX4ZXR.HtmMPDSnWe7rL09We', '0702943640', '2026-06-26 15:32:03'),
-(6, 4, 'Doris', 'Ader', 'aderdoris@gmail.com', '$2b$10$TkBMqLhUDe92Lj.COHdZ8.juGi5GKq708yYP/AX.MNMc7K/a7Q3qG', '0726240137', '2026-06-26 15:34:00');
 
 --
 -- Indexes for dumped tables
@@ -344,19 +278,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -368,13 +302,13 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT for table `medical_records`
 --
 ALTER TABLE `medical_records`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -386,19 +320,19 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
