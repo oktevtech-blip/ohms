@@ -23,29 +23,6 @@ function Navbar() {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden lg:flex items-center gap-10">
-
-          <a
-            href="#home"
-            className="text-slate-700 hover:text-green-600 transition-all duration-300 font-medium"
-          >
-            Home
-          </a>
-
-          <a
-            href="#services"
-            className="text-slate-700 hover:text-green-600 transition-all duration-300 font-medium"
-          >
-            Services
-          </a>
-
-          <a
-            href="#doctors"
-            className="text-slate-700 hover:text-green-600 transition-all duration-300 font-medium"
-          >
-            Doctors
-          </a>
-        </div>
 
         {/* Buttons */}
         <div className="flex items-center gap-4">
