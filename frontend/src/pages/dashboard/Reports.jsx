@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 
@@ -49,9 +49,7 @@ function Reports() {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/reports"
-      );
+      const res = await api.get("/reports");
 
       setStats({
         patients: res.data.patients,

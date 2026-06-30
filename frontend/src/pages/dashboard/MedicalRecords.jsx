@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 
@@ -36,9 +36,7 @@ function MedicalRecords() {
 
   const fetchRecords = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/medical-records"
-      );
+      const res = await api.get("/medical-records");
       setRecords(res.data);
     } catch (error) {
       console.error(error);
@@ -47,9 +45,7 @@ function MedicalRecords() {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/patients"
-      );
+      const res = await api.get("/patients");
       setPatients(res.data);
     } catch (error) {
       console.error(error);
@@ -58,9 +54,7 @@ function MedicalRecords() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/doctors"
-      );
+      const res = await api.get("/doctors");
       setDoctors(res.data);
     } catch (error) {
       console.error(error);
@@ -78,8 +72,8 @@ function MedicalRecords() {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/medical-records",
+      await api.post(
+        "/medical-records",
         formData
       );
 
@@ -108,8 +102,8 @@ function MedicalRecords() {
     }
 
     try {
-      await axios.delete(
-        `http://localhost:5000/api/medical-records/${id}`
+      await api.delete(
+        `/medical-records/${id}`
       );
 
       fetchRecords();

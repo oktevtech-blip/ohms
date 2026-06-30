@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 function Settings() {
@@ -55,9 +55,7 @@ function Settings() {
 
     try {
 
-      const res = await axios.get(
-        "http://localhost:5000/api/settings"
-      );
+      const res = await api.get("/settings");
 
       setHospital({
         hospital_name:
@@ -104,8 +102,8 @@ function Settings() {
 
     try {
 
-      const res = await axios.get(
-        `http://localhost:5000/api/users/${user.user_id}`
+      const res = await api.get(
+        `/users/${user.user_id}`
       );
 
       setProfile({
@@ -131,8 +129,8 @@ function Settings() {
 
     try {
 
-      await axios.put(
-        "http://localhost:5000/api/settings",
+      await api.put(
+        "/settings",
         hospital
       );
 
@@ -152,8 +150,8 @@ function Settings() {
 
     try {
 
-      await axios.put(
-        "http://localhost:5000/api/settings/preferences",
+      await api.put(
+        "/settings/preferences",
         preferences
       );
 
@@ -171,8 +169,8 @@ function Settings() {
 
     try {
 
-      await axios.put(
-        `http://localhost:5000/api/users/${user.user_id}`,
+      await api.put(
+        `/users/${user.user_id}`,
         profile
       );
 
@@ -202,8 +200,8 @@ function Settings() {
 
     try {
 
-      await axios.put(
-        "http://localhost:5000/api/settings/password",
+      await api.put(
+        "/settings/password",
         {
           currentPassword:
             password.currentPassword,

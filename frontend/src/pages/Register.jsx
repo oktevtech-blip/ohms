@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHospital } from "react-icons/fa";
-import axios from "axios";
+import api from "../../api/axios";
 
 function Register() {
   const navigate = useNavigate();
@@ -34,16 +34,13 @@ function Register() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        {
-          role_id: 1,
-          first_name: formData.first_name,
-          last_name: formData.last_name,
-          email: formData.email,
-          password: formData.password,
-        }
-      );
+      const response = await api.post("/auth/register", {
+        role_id: 1,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        password: formData.password,
+      });
 
       alert(response.data.message);
 

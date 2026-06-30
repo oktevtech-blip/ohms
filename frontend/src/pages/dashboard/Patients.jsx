@@ -7,7 +7,7 @@ import {
   FaTrash,
   FaEdit,
 } from "react-icons/fa";
-import axios from "axios";
+import api from "../../api/axios";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
@@ -27,9 +27,7 @@ function Patients() {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/patients"
-      );
+      const response = await api.get("/patients");
 
       setPatients(response.data);
     } catch (error) {
@@ -57,13 +55,13 @@ function Patients() {
 
     try {
       if (editingPatient) {
-        await axios.put(
-          `http://localhost:5000/api/patients/${editingPatient.patient_id}`,
+        await api.put(
+          `/patients/${editingPatient.patient_id}`,
           formData
         );
       } else {
-        await axios.post(
-          "http://localhost:5000/api/patients",
+        await api.post(
+          "/patients",
           formData
         );
       }
@@ -112,8 +110,8 @@ function Patients() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(
-        `http://localhost:5000/api/patients/${id}`
+      await api.delete(
+        `/patients/${id}`
       );
 
       fetchPatients();

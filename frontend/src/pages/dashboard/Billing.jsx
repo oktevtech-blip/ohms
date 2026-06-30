@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 
@@ -36,9 +36,7 @@ function Billing() {
 
   const fetchBills = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/billing"
-      );
+      const res = await api.get("/billing");
 
       setBills(res.data);
 
@@ -49,9 +47,7 @@ function Billing() {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/patients"
-      );
+      const res = await api.get("/patients");
 
       setPatients(res.data);
 
@@ -72,8 +68,8 @@ function Billing() {
 
     try {
 
-      await axios.post(
-        "http://localhost:5000/api/billing",
+      await api.post(
+        "/billing",
         formData
       );
 
@@ -96,8 +92,8 @@ function Billing() {
   const markPaid = async (id) => {
     try {
 
-      await axios.put(
-        `http://localhost:5000/api/billing/${id}/pay`
+      await api.put(
+        `/billing/${id}/pay`
       );
 
       fetchBills();
@@ -114,8 +110,8 @@ function Billing() {
 
     try {
 
-      await axios.delete(
-        `http://localhost:5000/api/billing/${id}`
+      await api.delete(
+        `/billing/${id}`
       );
 
       fetchBills();

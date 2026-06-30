@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 import {
@@ -36,9 +36,7 @@ function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/dashboard"
-      );
+      const res = await api.get("/dashboard");
 
       setDashboard(res.data);
     } catch (error) {

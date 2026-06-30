@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import axios from "axios";
+import api from "../../api/axios";
 
 import {
   FaPlus,
@@ -44,8 +44,8 @@ function Employees() {
 
     try {
 
-      const res = await axios.get(
-        "http://localhost:5000/api/employees"
+      const res = await api.get(
+        "/employees"
       );
 
       setEmployees(res.data);
@@ -137,75 +137,78 @@ function Employees() {
     setShowModal(true);
 
   };
+
   const saveEmployee = async () => {
-  try {
 
-    if (editingEmployee) {
+    try {
 
-      await axios.put(
-        `http://localhost:5000/api/employees/${editingEmployee.user_id}`,
-        formData
-      );
+      if (editingEmployee) {
 
-      alert("Employee updated successfully");
+        await api.put(
+          `/employees/${editingEmployee.user_id}`,
+          formData
+        );
 
-    } else {
+        alert("Employee updated successfully");
 
-      const res = await axios.post(
-        "http://localhost:5000/api/employees",
-        formData
-      );
+      } else {
 
-      setGeneratedPassword(res.data.password);
+        const res = await api.post(
+          "/employees",
+          formData
+        );
+
+        setGeneratedPassword(res.data.password);
+
+        alert(
+          `Employee added successfully.\n\nTemporary Password: ${res.data.password}`
+        );
+
+      }
+
+      setShowModal(false);
+
+      fetchEmployees();
+
+    } catch (err) {
+
+      console.log(err);
 
       alert(
-        `Employee added successfully.\n\nTemporary Password: ${res.data.password}`
+        err.response?.data?.message ||
+          "Something went wrong."
       );
 
     }
 
-    setShowModal(false);
+  };
 
-    fetchEmployees();
+  const deleteEmployee = async (id) => {
 
-  } catch (err) {
-
-    console.log(err);
-
-    alert(
-      err.response?.data?.message ||
-        "Something went wrong."
-    );
-
-  }
-};
-
-const deleteEmployee = async (id) => {
-
-  if (
-    !window.confirm(
-      "Delete this employee?"
+    if (
+      !window.confirm(
+        "Delete this employee?"
+      )
     )
-  )
-    return;
+      return;
 
-  try {
+    try {
 
-    await axios.delete(
-      `http://localhost:5000/api/employees/${id}`
-    );
+      await api.delete(
+        `/employees/${id}`
+      );
 
-    fetchEmployees();
+      fetchEmployees();
 
-  } catch (err) {
+    } catch (err) {
 
-    console.log(err);
+      console.log(err);
 
-    alert("Failed to delete employee");
+      alert("Failed to delete employee");
 
-  }
+    }
 
-};
+  };
 
   return (
   <DashboardLayout>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHospital, FaUserMd } from "react-icons/fa";
-import axios from "axios";
+import api from "../../api/axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,8 +26,7 @@ function Login() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      const response = await api.post("/auth/login",
         formData
       );
 

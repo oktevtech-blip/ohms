@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { FaCalendarPlus, FaSearch, FaTimes } from "react-icons/fa";
-import axios from "axios";
+import api from "../../api/axios";
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
@@ -27,10 +27,7 @@ function Appointments() {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/appointments"
-      );
-
+      const res = await api.get("/appointments");
       setAppointments(res.data);
     } catch (error) {
       console.error(error);
@@ -39,10 +36,7 @@ function Appointments() {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/patients"
-      );
-
+      const res = await api.get("/patients");
       setPatients(res.data);
     } catch (error) {
       console.error(error);
@@ -51,10 +45,7 @@ function Appointments() {
 
   const fetchDoctors = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/doctors"
-      );
-
+      const res = await api.get("/doctors");
       setDoctors(res.data);
     } catch (error) {
       console.error(error);
@@ -72,10 +63,7 @@ function Appointments() {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/appointments",
-        formData
-      );
+      await api.post("/appointments", formData);
 
       setShowModal(false);
 

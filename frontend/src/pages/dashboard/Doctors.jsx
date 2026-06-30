@@ -8,7 +8,7 @@ import {
   FaTrash,
   FaTimes,
 } from "react-icons/fa";
-import axios from "axios";
+import api from "../../api/axios";
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -29,9 +29,7 @@ function Doctors() {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/doctors"
-      );
+      const response = await api.get("/doctors");
 
       setDoctors(response.data);
     } catch (error) {
@@ -59,13 +57,13 @@ function Doctors() {
 
     try {
       if (editingDoctor) {
-        await axios.put(
-          `http://localhost:5000/api/doctors/${editingDoctor.doctor_id}`,
+        await api.put(
+          `/doctors/${editingDoctor.doctor_id}`,
           formData
         );
       } else {
-        await axios.post(
-          "http://localhost:5000/api/doctors",
+        await api.post(
+          "/doctors",
           formData
         );
       }
@@ -113,8 +111,8 @@ function Doctors() {
       return;
 
     try {
-      await axios.delete(
-        `http://localhost:5000/api/doctors/${id}`
+      await api.delete(
+        `/doctors/${id}`
       );
 
       fetchDoctors();
