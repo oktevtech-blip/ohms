@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHospital } from "react-icons/fa";
-import api from "../../api/axios";
+import api from "../api/axios";
 
 function Register() {
   const navigate = useNavigate();
